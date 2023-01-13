@@ -2,6 +2,7 @@ import React from "react";
 import Contador1 from "../../Components/Contadores/Contador1";
 import Contador2 from "../../Components/Contadores/Contador2";
 import Contador3 from "../../Components/Contadores/Contador3";
+import Contador4 from "../../Components/Contadores/Contador4";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -16,8 +17,9 @@ const Home = () => {
       <Contador2 />
       <Card>
         <CardContent>
-          <Contador3 />
+          <Contador4 />
         </CardContent>
+        {/* <Contador3 /> */}
       </Card>
     </>
   );
