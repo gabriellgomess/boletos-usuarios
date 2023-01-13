@@ -5,9 +5,10 @@ import { DataGrid } from '@mui/x-data-grid';
 function ParentComponent() {
 const { usuarios } = useContext(MyContext);
 const [processedData, setProcessedData] = useState(null);
+const {filtrados} = useContext(MyContext);
 
 useEffect(() => {
-    let processedData = usuarios.reduce((acc, curr) => {
+    let processedData = filtrados.reduce((acc, curr) => {
         const exist = acc.find(d => d.username === curr.username);
         if (exist) {
             exist.totalValue += parseInt(curr.value);
@@ -38,7 +39,7 @@ useEffect(() => {
         return { ...data, id: index }
     });
     setProcessedData(processedData);
-}, [usuarios])
+}, [filtrados])
 
 
 
@@ -67,7 +68,7 @@ return (
             pageSize={5}
             getRowId={(row) => row.id}
             rowsPerPageOptions={[5]}
-            checkboxSelection
+            // checkboxSelection
         />
     </div>
 );

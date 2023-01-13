@@ -34,16 +34,23 @@ const theme = createTheme({
 
 const App = () => {
   const [usuarios, setUsuarios] = useState([]);
+  const [dataInicial, setDataInicial] = useState();
+  const [dataFinal, setDataFinal] = useState();
+  const [filtrados, setFiltrados] = useState([]);
   useEffect(() => {
     axios.get('https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/lista_boletos_user.php')
       .then(res => {
         setUsuarios(res.data);
       })
+    const dataAtual = new Date();
+    const dataAtualFormatada = dataAtual.toISOString().split('T')[0];
+    setDataInicial(dataAtualFormatada);
+    setDataFinal(dataAtualFormatada);
   }, []);
 
 
   return (
-    <MyContext.Provider value={{usuarios, setUsuarios}}>
+    <MyContext.Provider value={{usuarios, setUsuarios, dataInicial, setDataInicial, dataFinal, setDataFinal, filtrados, setFiltrados}}>
       <ThemeProvider theme={theme}>    
         {/* <CssBaseline /> */}
         <Header />

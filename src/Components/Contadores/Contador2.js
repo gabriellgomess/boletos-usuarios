@@ -1,23 +1,37 @@
 import React, { useContext, useState, useEffect } from "react";
 import MyContext from "../../context/myContext";
 import collect from "collect.js";
-import numeral from 'numeral';
+
 
 const Contador2 = () => {
     const {usuarios} = useContext(MyContext);
     const [contador, setContador] = useState(0);
+    const {dataInicial, dataFinal} = useContext(MyContext);
+    const {filtrados, setFiltrados} = useContext(MyContext);
     
     useEffect(() => {
-        
-        setContador(collect(usuarios).sum('value'));
-        console.log(contador);
-    }, [usuarios])
+        const filteredUsers = usuarios.filter(user => {
+            const userDate = new Date(user.dateCreated);  
+            const dataInicialDate = new Date(dataInicial);
+            const dataFinalDate = new Date(dataFinal);          
+            return userDate >= dataInicialDate && userDate <= dataFinalDate;           
+        });
+    
+        setContador(collect(filteredUsers).sum('value'));
+        setFiltrados(filteredUsers);
+    
+        console.log("Filtro: ", filteredUsers);
+
+    
+    }, [usuarios, dataInicial, dataFinal])
+    
+
     // Converter contador para moeda
     const contador_ptBR = new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
     }).format(contador);
-    const countFormatted = "R$ "+numeral(contador_ptBR).format('0.0')+"K";
+    const countFormatted = contador_ptBR;
 
     return (
         <div>
